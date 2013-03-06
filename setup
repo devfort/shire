@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+
+random_ip_byte () {
+  ruby -e 'puts rand(254) + 1'
+}
+
+if [ -f Vagrantfile.local ]; then
+  echo "You've already got a Vagrantfile.local: all done." >&2
+  exit
+fi
+
+IP_A=$(random_ip_byte)
+IP_B=$(random_ip_byte)
+IP_C=$(random_ip_byte)
+
+IP="10.${IP_A}.${IP_B}.${IP_C}"
+
+echo "config.vm.network :hostonly, '${IP}'" >>Vagrantfile.local
+
+echo "Created Vagrantfile.local. Now try 'vagrant up'." >&2
