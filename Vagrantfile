@@ -25,4 +25,12 @@ Vagrant::Config.run do |config|
   if File.exist? "Vagrantfile.local"
     instance_eval File.read("Vagrantfile.local"), "Vagrantfile.local"
   end
+
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = ["chef/cookbooks", "chef/opscode-cookbooks"]
+    # TODO: Check to see if we're on a fort!
+    chef.add_recipe "fort"
+
+    chef.json = { :runas => 'vagrant' }
+  end
 end

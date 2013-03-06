@@ -1,0 +1,6 @@
+deb http://ubuntu.fort/ quantal main restricted universe
+deb-src http://ubuntu.fort/ quantal main restricted universe
+deb http://ubuntu.fort/ quantal-updates main restricted universe
+deb-src http://ubuntu.fort/ quantal-updates main restricted universe
+deb http://ubuntu.fort/ quantal-backports main restricted universe
+deb-src http://ubuntu.fort/ quantal-backports main restricted universe
