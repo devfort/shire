@@ -1,3 +1,15 @@
+def random_ip
+  "10.#{rand(254) + 1}.#{rand(254) + 1}.#{rand(254) + 1}"
+end
+
+if not File.exist? "Vagrantfile.local"
+  $stderr.puts "Detected new install -- creating Vagrantfile.local"
+
+  File.open("Vagrantfile.local", "w") do |fp|
+    fp.write("config.vm.network :hostonly, '#{random_ip}'\n")
+  end
+end
+
 Vagrant::Config.run do |config|
   config.vm.box = "devfort_20130306"
   config.vm.box_url = "http://vagrant.fort/boxes/devfort.box"
