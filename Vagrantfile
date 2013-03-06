@@ -15,7 +15,10 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://vagrant.fort/boxes/devfort.box"
   config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
   config.vm.host_name = "devfort"
-  config.vm.share_folder "v-root", "/home/vagrant/hobbit", ".", :nfs => true
+  config.vm.share_folder "v-root", "/home/vagrant/hobbit-vm", ".", :nfs => true
+  if File.exist? "../hobbit"
+    config.vm.share_folder "hobbit", "/home/vagrant/hobbit", "../hobbit", :nfs => true
+  end
 
   # You may want to up the memory / CPUs to get better performance in the VM.
   # Example given below to put in Vagrantfile.local if you want to do so.
