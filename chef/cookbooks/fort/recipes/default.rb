@@ -52,3 +52,21 @@ service "postgres" do
   action [:enable, :start]
 end
 
+#
+# Install local mail delivery and MTA
+#
+# The metapackage mail-stack-delivery will set up local IMAP/POP/SMTP servers
+# that, by default, will authenticate using PAM.
+#
+
+cookbook_file "/var/tmp/postfix.preseed" do
+  source "mail-stack-delivery/postfix.preseed"
+  notifies :run, "execute[set postfix selections]", :immediately
+end
+
+execute "set postfix selections" do
+  command "debconf-set-selections /var/tmp/postfix.preseed"
+  action :nothing
+end
+
+package "mail-stack-delivery"

@@ -1,0 +1,3 @@
+postfix	postfix/mailname	string	dev.fort
+postfix	postfix/main_mailer_type	select	Local only
+
