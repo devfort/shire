@@ -19,6 +19,7 @@ Vagrant::Config.run do |config|
   if File.exist? "../hobbit"
     config.vm.share_folder "hobbit", "/home/vagrant/hobbit", "../hobbit", :nfs => true
   end
+  config.vm.forward_port 8000, 8000, :auto => true
 
   # You may want to up the memory / CPUs to get better performance in the VM.
   # Example given below to put in Vagrantfile.local if you want to do so.
