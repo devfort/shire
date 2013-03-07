@@ -52,5 +52,3 @@ service "postgres" do
   action [:enable, :start]
 end
 
-
-

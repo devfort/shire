@@ -6,7 +6,7 @@ execute "install listen gem" do
   command "gem install #{Chef::Config[:file_cache_path]}/listen-0.7.3.gem"
 end
 
-# TODO: Use the real postgresql providers
+# TODO: Use the real postgresql providers?
 # include_recipe "database::postgresql"
 execute "Install hobbit user" do
   command "createuser --superuser #{node[:runas]}"
