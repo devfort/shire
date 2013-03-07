@@ -31,3 +31,26 @@ cookbook_file "/home/#{node[:runas]}/.npmrc" do
   mode 0755
 end
 
+remote_directory "/usr/etc/postgresql" do
+  source "postgres/etc"
+end
+
+bash "remove broken postgres" do
+  code <<-EOH
+  pkill postgres
+  sed -i -e '/pg_ctl/d' /etc/rc.local
+  EOH
+end
+
+cookbook_file "/etc/init/postgres.conf" do
+  source "postgres/upstart.conf"
+  notifies :restart, "service[postgres]", :immediate
+end
+
+service "postgres" do
+  provider Chef::Provider::Service::Upstart
+  action [:enable, :start]
+end
+
+
+
