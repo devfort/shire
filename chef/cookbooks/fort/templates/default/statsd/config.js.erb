@@ -49,6 +49,8 @@ Optional Variables:
   graphitePort: <%= node[:statsd][:graphite][:port] %>,
   graphiteHost: "<%= node[:statsd][:graphite][:host] %>",
   port: <%= node[:statsd][:port] %>,
+  debug: true,
+  dumpMessages: true,
   log: {
     backend: "syslog"
   }

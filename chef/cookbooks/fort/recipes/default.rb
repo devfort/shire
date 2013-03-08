@@ -17,6 +17,8 @@ end
 execute "apt-get-update" do
   command "apt-get update"
   action :nothing
+  # HACK: Sometimes this returns 100, but we don't care... for now.
+  ignore_failure true
 end
 
 directory "/home/#{node[:runas]}/.pip" do

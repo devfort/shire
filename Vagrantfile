@@ -20,6 +20,7 @@ Vagrant::Config.run do |config|
     config.vm.share_folder "hobbit", "/home/vagrant/hobbit", "../hobbit", :nfs => true
   end
   config.vm.forward_port 8000, 8000, :auto => true
+  config.vm.forward_port 8080, 8080, :auto => true
   config.vm.forward_port 143,  8143, :auto => true
 
   # You may want to up the memory / CPUs to get better performance in the VM.
