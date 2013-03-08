@@ -38,6 +38,7 @@ cookbook_file "/home/#{node[:runas]}/.npmrc" do
   group node[:runas]
   mode 0755
 end
+package "npm"
 
 remote_directory "/usr/etc/postgresql" do
   source "postgres/etc"

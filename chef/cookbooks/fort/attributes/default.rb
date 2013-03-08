@@ -1,0 +1,1 @@
+default[:statsd][:user] = "statsd"

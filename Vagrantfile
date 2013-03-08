@@ -35,6 +35,7 @@ Vagrant::Config.run do |config|
     chef.cookbooks_path = ["chef/cookbooks", "chef/opscode-cookbooks"]
     # TODO: Check to see if we're on a fort!
     chef.add_recipe "fort"
+    chef.add_recipe "fort::statsd"
     chef.add_recipe "hobbit"
 
     chef.json = { :runas => 'vagrant' }
