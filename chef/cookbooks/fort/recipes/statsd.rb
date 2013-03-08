@@ -33,6 +33,16 @@ directory "/home/#{node[:statsd][:user]}/etc" do
   mode "0755"
 end
 
+cookbook_file "/etc/carbon/carbon.conf" do
+  source "graphite/carbon.conf"
+  notifies :restart, "service[carbon-cache]", :delayed
+end
+
+cookbook_file "/etc/carbon/storage-schemas.conf" do
+  source "graphite/storage-schemas.conf"
+  notifies :restart, "service[carbon-cache]", :delayed
+end
+
 cookbook_file "/etc/default/graphite-carbon" do
   source "statsd/graphite-carbon"
   owner node[:statsd][:user]
