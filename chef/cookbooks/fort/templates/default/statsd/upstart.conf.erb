@@ -1,0 +1,11 @@
+description "statsd network daemon"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+setuid <%= node[:statsd][:user] %>
+setgid <%= node[:statsd][:user] %>
+
+respawn
+
+exec nodejs /home/<%= node[:statsd][:user] %>/node_modules/statsd/stats.js /home/<%= node[:statsd][:user] %>/etc/config.js
