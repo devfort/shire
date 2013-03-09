@@ -103,7 +103,6 @@ end
 %w{
   /opt/graphite/storage/
   /opt/graphite/storage/log/webapp/
-  /opt/graphite/storage/whisper/
 }.each { |dir|
   directory dir do
     owner node[:statsd][:user]
@@ -111,6 +110,12 @@ end
     mode  "0755"
   end
 }
+
+directory "/opt/graphite/storage/whisper/" do
+  owner "_graphite"
+  group "_graphite"
+  mode "0755"
+end
 
 # HACK: Remove app_settings.pyc because fuck graphite
 file "/opt/graphite/webapp/graphite/app_settings.pyc" do
