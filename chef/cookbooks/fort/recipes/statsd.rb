@@ -122,6 +122,12 @@ file "/opt/graphite/webapp/graphite/app_settings.pyc" do
   action :delete
 end
 
+execute "create graphite sqlite DB" do
+  command "echo 'no' | python /opt/graphite/webapp/graphite/manage.py syncdb"
+  user node[:statsd][:user]
+end
+
+
 service "gunicorn-graphite" do
     provider Chef::Provider::Service::Upstart
     action [:enable, :start]
