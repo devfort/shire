@@ -20,9 +20,9 @@ Vagrant.configure("1") do |config|
   config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.10_provisionerless.box"
   config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
   config.vm.host_name = "devfort"
-  config.vm.share_folder "v-root", "/home/vagrant/shire", ".", :nfs => true
-  if File.exist? "../hobbit"
-    config.vm.share_folder "hobbit", "/home/vagrant/hobbit", "../hobbit", :nfs => true
+  config.vm.share_folder "v-root", "/home/vagrant/shire", "."
+  if File.exist? "../behabitual"
+    config.vm.share_folder "hobbit", "/home/vagrant/hobbit", "../behabitual"
   end
   config.vm.forward_port 8000, 8000, :auto => true
   config.vm.forward_port 8080, 8080, :auto => true
