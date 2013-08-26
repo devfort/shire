@@ -10,9 +10,14 @@ if not File.exist? "Vagrantfile.local"
   end
 end
 
-Vagrant::Config.run do |config|
+
+Vagrant.configure("2") do |config|
+  config.omnibus.chef_version = :latest
+end
+
+Vagrant.configure("1") do |config|
   config.vm.box = "devfort_20130306"
-  config.vm.box_url = "http://vagrant.fort/boxes/devfort.box"
+  config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.10_provisionerless.box"
   config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
   config.vm.host_name = "devfort"
   config.vm.share_folder "v-root", "/home/vagrant/shire", ".", :nfs => true
