@@ -1,24 +1,5 @@
-# Comment out any uncommented lines in sources.list. This is obviously a bit
-# antisocial anywhere other than a fort, but is significantly less antisocial
-# than simply blatting the file.
-
-execute "remove default apt sources" do
-  command "sed -i -e 's/^\\([^#]\\)/#\\1/' /etc/apt/sources.list"
-end
-
-cookbook_file "/etc/apt/sources.list.d/fort.list" do
-  source "apt/fort.list"
-  mode 0644
-  owner "root"
-  group "root"
-  notifies :run, "execute[apt-get-update]", :immediate
-end
-
 execute "apt-get-update" do
   command "apt-get update"
-  action :nothing
-  # HACK: Sometimes this returns 100, but we don't care... for now.
-  ignore_failure true
 end
 
 directory "/home/#{node[:runas]}/.pip" do
@@ -41,16 +22,17 @@ cookbook_file "/home/#{node[:runas]}/.npmrc" do
   mode 0755
 end
 package "npm"
+package "postgres-xc"
 
-remote_directory "/usr/etc/postgresql" do
-  source "postgres/etc"
+user "postgres" do
+  system true
+  home "/var/pgsql/data"
+  supports :manage_home => true
+  action [:create, :modify, :manage]
 end
 
-bash "remove broken postgres" do
-  code <<-EOH
-  pkill postgres
-  sed -i -e '/pg_ctl/d' /etc/rc.local
-  EOH
+remote_directory "/var/pgsql/data" do
+  source "postgres/etc"
 end
 
 cookbook_file "/etc/init/postgres.conf" do
